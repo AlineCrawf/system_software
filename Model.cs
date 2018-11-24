@@ -35,7 +35,7 @@ namespace PriorityQueue
                                                                // поступления процессов не превышен
             {
                 // создаётся новый процесс
-                Process newProcess = new Process(clockGen.Clock);
+                Process newProcess = new Process(clockGen.CurrentTact);
                 // генерируется интервал обслуживания процесса процессором
                 newProcess.BurstTime = processRand.Next(burstMin, burstMax + 1);
                 // и помещается в очередь готовых процессов
@@ -75,7 +75,7 @@ namespace PriorityQueue
                 return cpuScheduler;
             }
         }
-        public PriorityQueue<Process> ReadyQueue
+        public PriorityQueue<Process,HashTable<Process>> ReadyQueue
         {
             get
             {
@@ -111,7 +111,7 @@ namespace PriorityQueue
         /// <summary>
         /// очередь готовых процессов
         /// </summary>
-        private PriorityQueue<Process> readyQueue;
+        private PriorityQueue<Process,HashTable<Process>> readyQueue;
 
         /// <summary>
         /// генератор процессов
@@ -140,8 +140,8 @@ namespace PriorityQueue
         // вспомогательный метод, определяющий, требуется ли перепланировка
         private bool redevelopmentNeed()
         {
-            return (cpu.Free() || cpu.RunningProcess.WorkTime ==
-                        cpu.RunningProcess.BurstTime);
+            return (cpu.IsFree || cpu.ActivProcess.WorkTime ==
+                        cpu.ActivProcess.BurstTime);
         }
     }
 
