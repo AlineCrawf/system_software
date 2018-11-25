@@ -18,6 +18,7 @@ namespace PriorityQueue
         int waitingTime;
         int workTime;
         int toQueue;
+       // int priority;
         ProcessStatus status;
 
 
@@ -30,6 +31,9 @@ namespace PriorityQueue
         internal ProcessStatus Status { get => status; set => status = value; }
         public int BurstTime { get => burstTime; set => burstTime = value; }
         public int WorkTime { get => workTime; set => workTime = value; }
+      //  public int Priority { get => priority; set => priority = value; }
+        public int WaitingTime { get => waitingTime; set => waitingTime = value; }
+        public int ServiseTime { get => serviseTime; set => serviseTime = value; }
 
         public Process(int time)
         {
@@ -44,6 +48,12 @@ namespace PriorityQueue
             return burstTime.CompareTo(obj);
         }
 
+        //public int CompareTo(object obj)
+        //{
+        //    return priority.CompareTo(obj);
+        //}
+
+
         public static  bool operator < (Process p1,Process p2)
         {
             return p1.burstTime < p2.burstTime;
@@ -53,6 +63,16 @@ namespace PriorityQueue
         {
             return p1.burstTime > p2.burstTime;
         }
+
+        //public static bool operator <(Process p1, Process p2)
+        //{
+        //    return p1.priority > p2.priority;
+        //}
+
+        //public static bool operator >(Process p1, Process p2)
+        //{
+        //    return p1.priority < p2.priority;
+        //}
 
         public int TimeEstimate( int time)
         {
