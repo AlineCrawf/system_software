@@ -18,7 +18,9 @@ namespace PriorityQueue
         int waitingTime;
         int workTime;
         int toQueue;
-       // int priority;
+        int prevTime = 0;
+        int a; // коэффициент для оценки
+      
         ProcessStatus status;
 
 
@@ -31,9 +33,10 @@ namespace PriorityQueue
         internal ProcessStatus Status { get => status; set => status = value; }
         public int BurstTime { get => burstTime; set => burstTime = value; }
         public int WorkTime { get => workTime; set => workTime = value; }
-      //  public int Priority { get => priority; set => priority = value; }
         public int WaitingTime { get => waitingTime; set => waitingTime = value; }
         public int ServiseTime { get => serviseTime; set => serviseTime = value; }
+        public int PrevTime { get => PrevTime; set => PrevTime = value; }
+        public int A { get => a; set => a = value; }
 
         public Process(int time)
         {
@@ -48,35 +51,23 @@ namespace PriorityQueue
             return burstTime.CompareTo(obj);
         }
 
-        //public int CompareTo(object obj)
-        //{
-        //    return priority.CompareTo(obj);
-        //}
-
 
         public static  bool operator < (Process p1,Process p2)
         {
-            return p1.burstTime < p2.burstTime;
+            return p1.prevTime < p2.prevTime;
         }
 
         public static bool operator > (Process p1, Process p2)
         {
-            return p1.burstTime > p2.burstTime;
+            return p1.prevTime > p2.prevTime;
         }
-
-        //public static bool operator <(Process p1, Process p2)
-        //{
-        //    return p1.priority > p2.priority;
-        //}
-
-        //public static bool operator >(Process p1, Process p2)
-        //{
-        //    return p1.priority < p2.priority;
-        //}
-
-        public int TimeEstimate( int time)
+        
+        public void TimeEstimate( )
         {
-            return 0;
+            if (prevTime == 0)
+                prevTime = burstTime;
+            else
+            prevTime = (burstTime + prevTime) * a;
         }
     }
 }
