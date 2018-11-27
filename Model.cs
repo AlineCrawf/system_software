@@ -38,6 +38,7 @@ namespace PriorityQueue
                 Process newProcess = new Process(clockGen.CurrentTact);
                 // генерируется интервал обслуживания процесса процессором
                 newProcess.BurstTime = processRand.Next(burstMin, burstMax + 1);
+                newProcess.TimeEstimate();
                 // и помещается в очередь готовых процессов
                 readyQueue.Put(newProcess);
             }
